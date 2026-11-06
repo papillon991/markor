@@ -107,3 +107,8 @@ app/flavor*
 
 cm-editor/node_modules/
 gradle/gradle-daemon-jvm.properties
+
+# signing keys
+*.p12
+*.jks
+*.keystore

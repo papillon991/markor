@@ -112,7 +112,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
-        _hlEditor.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setTypeface(net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
         _hlEditor.setHighlighter(new PlaintextSyntaxHighlighter(_appSettings));
         _hlEditor.setHighlightingEnabled(true);
         _hlEditor.setText(sharedText);

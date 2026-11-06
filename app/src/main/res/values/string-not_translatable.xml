@@ -40,6 +40,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start" translatable="false">Start</string>
     <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
+    <string name="files_label_en" translatable="false">Files</string>
+    <string name="more_label_en" translatable="false">More</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
     <string name="storage" translatable="false">Storage</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>

@@ -9,6 +9,8 @@ package net.gsantner.markor.format;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
@@ -19,7 +21,9 @@ import androidx.core.content.ContextCompat;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.FontStacks;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -57,7 +61,7 @@ public abstract class TextConverterBase {
     protected static final String TOKEN_FILEURI_VIEWED_FILE = "{{ app.fileuri_viewed_file }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
-    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html lang='" + TOKEN_POST_LANG + "'><head><meta charset='UTF-8'>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;max-width:100%;max-height: 90vh;margin:auto;}" + CSS_E;
+    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html lang='" + TOKEN_POST_LANG + "'><head><meta charset='UTF-8'>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:" + TOKEN_FONT + ";}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;max-width:100%;max-height: 90vh;margin:auto;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_LIGHT = CSS_S + "html,body{color:#303030;}blockquote{color:#73747d;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
@@ -146,6 +150,9 @@ public abstract class TextConverterBase {
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
+        if (!isExportInLightMode) {
+            html += viewModeBaseCss(context, as);
+        }
         html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE + CSS_CLASS_FLOAT + CSS_BUTTON_STYLE_MATERIAL + CSS_BUTTON_STYLE_EMOJIBTN + CSS_CLASS_STICKY;
         if (as.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
@@ -160,6 +167,12 @@ public abstract class TextConverterBase {
         if (font.startsWith("/")) {
             html += CSS_S + "@font-face { font-family: customfont; src: url('file://" + font + "'); }" + CSS_E;
             font = "customfont";
+        }
+
+        // Font sets (Myeongjo / Plex): bundled @font-face rules and a font-family list
+        if (FontStacks.isStack(font)) {
+            html += CSS_S + FontStacks.cssFontFaces(font) + "h1,h2,h3,h4,h5,h6{font-family:inherit;}" + CSS_E;
+            font = FontStacks.cssFamilyList(font);
         }
 
         // Remove duplicate style blocks
@@ -192,6 +205,24 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_FILEURI_VIEWED_FILE, (file == null ? "" : Uri.fromFile(file.getAbsoluteFile()).toString().replace("'", "\\'").replace("\"", "\\\"")));
 
         return html;
+    }
+
+    /**
+     * View mode follows the edit mode: same background colour and same line spacing.
+     * The editor's spacing is a multiple of the font's own line height (ascent to descent),
+     * CSS line-height is a multiple of the font size, so convert using the font's metrics.
+     */
+    private static String viewModeBaseCss(final Context context, final AppSettings as) {
+        final Paint paint = new Paint();
+        paint.setTypeface(GsFontPreferenceCompat.typeface(context, as.getFontFamily(), Typeface.NORMAL));
+        paint.setTextSize(100f);
+        final Paint.FontMetrics fm = paint.getFontMetrics();
+        float lineHeight = (fm.descent - fm.ascent) / 100f * as.getEditorLineSpacing();
+        if (!(lineHeight > 0.5f && lineHeight < 6f)) {
+            lineHeight = 1.5f; // metrics unavailable, keep a sane default
+        }
+        return CSS_S + "html,body{background-color:" + GsTextUtils.colorToHexString(as.getEditorBackgroundColor()) + ";}"
+                + "body{line-height:" + String.format(Locale.US, "%.3f", lineHeight) + ";}" + CSS_E;
     }
 
     protected String getContentType() {

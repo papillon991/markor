@@ -1,3 +1,20 @@
+# Markor — personal fork
+
+> This is a **modified version** of [Markor](https://github.com/gsantner/markor) by Gregor Santner (Apache License 2.0). Not affiliated with or endorsed by the original project. Licenses: see `LICENSE.txt`; bundled fonts (`app/src/main/assets/fontstacks`) are under the SIL Open Font License, see `OFL.txt` there.
+
+Based on upstream tag `v2026.10.0`. Changes:
+
+- Bottom bar: To-Do tab removed (Files · QuickNote · More); QuickNote and More use a note and a three-dots icon; labels are always English.
+- File list text: title 17sp, description 13sp.
+- Two extra font sets in Settings → Font: *Myeongjo* (Lora → MaruBuri → Shippori Mincho → serif) and *Plex* (IBM Plex Sans JP → KR → Sans → sans-serif), used by the editor and the view mode.
+- View mode uses the editor's background colour and line spacing.
+
+The package name is unchanged (`net.gsantner.markor`); uninstall the official app first. Release APKs are signed with the fork's own key.
+
+Build: `./gradlew assembleFlavorDefaultRelease` (JDK 21). Signing: gradle properties `FORK_STORE_FILE` and `FORK_STORE_PASSWORD` (alias `fork`); without them the SDK debug key is used.
+
+---
+
 [![GitHub releases](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/gsantner/markor/total.svg?logo=github&logoColor=lime)](https://github.com/gsantner/markor/releases)
 [![Translate on Crowdin](https://img.shields.io/badge/translate-crowdin-green.svg)](https://crowdin.com/project/markor)

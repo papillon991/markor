@@ -70,4 +70,10 @@
     <color name="link">#FF1EA3FD</color>;
     <color name="transparent">#00FFFFFF</color>
     <color name="light_border">@color/lighter_grey</color>
+
+    <!-- Named so that dark mode can give them another colour (values-night) -->
+    <color name="bottomnav_unselected">@color/white</color>
+    <color name="fab_icon">@color/white</color>
+    <!-- Quotes in the editor in dark mode: the olive of the palette, which px_colors.xml does not carry -->
+    <color name="md_quote_dark">#7FA263</color>
 </resources>

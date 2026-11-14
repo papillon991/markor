@@ -77,7 +77,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
         if (getInt(R.string.pref_key__basic_color_scheme__bg_light, -999) == -999) {
-            setEditorBasicColor(true, R.color.white, R.color.dark_grey);
+            setEditorBasicColor(true, R.color.px_paper, R.color.px_desk);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
     }

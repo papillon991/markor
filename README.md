@@ -8,6 +8,7 @@ Based on upstream tag `v2026.10.0`. Changes:
 - File list text: title 17sp, description 13sp.
 - Two extra font sets in Settings → Font: *Myeongjo* (Lora → MaruBuri → Shippori Mincho → serif) and *Plex* (IBM Plex Sans JP → KR → Sans → sans-serif), used by the editor and the view mode.
 - View mode uses the editor's background colour and line spacing.
+- Dark mode takes the Pixel Cold War palette (`res/values/px_colors.xml`, from [pixel-icons-cold-war](https://github.com/papillon991/pixel-icons-cold-war)): bakelite bars, the desk colour behind lists and the editor, paper text, brass accent, and in the Markdown editor brass headings, list signs and links with olive quotes. Colours only; the shapes are Markor's. An installed app keeps its saved editor colours until *Pixel Cold War* is picked under Settings → Editor → Basic colour scheme. Light mode is unchanged.
 
 The package name is unchanged (`net.gsantner.markor`); uninstall the official app first. Release APKs are signed with the fork's own key.
 

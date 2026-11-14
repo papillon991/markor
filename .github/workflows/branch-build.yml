@@ -1,0 +1,26 @@
+name: Branch build
+
+# main이 아닌 가지에 푸시하면 빌드만 해 본다. 릴리스를 만들지 않고 서명 키도 쓰지 않는다.
+# main에 합치기 전에 빌드가 깨지지 않는지 보는 용도다 (main 푸시는 release-apk.yml이 릴리스를 낸다).
+on:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: ./gradlew assembleFlavorDefaultRelease --no-daemon

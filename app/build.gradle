@@ -22,8 +22,10 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
-        versionName "2026.10.0"
-        versionCode 164
+        // Fork: CI sets BUILD_NUMBER so every release gets a unique, increasing version
+        def forkBuild = System.getenv("BUILD_NUMBER")
+        versionName "2026.10.0" + (forkBuild ? ".${forkBuild}" : "")
+        versionCode 164 + (forkBuild ? forkBuild.toInteger() : 0)
 
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
@@ -62,8 +64,23 @@ android {
         main.assets.srcDirs += 'thirdparty/assets'
     }
 
+    // Fork: signing key from gradle properties (kept outside the repository), SDK debug key if absent
+    def forkPassword = project.findProperty("FORK_STORE_PASSWORD")
+    def forkSigned = forkPassword && project.findProperty("FORK_STORE_FILE")
+    signingConfigs {
+        fork {
+            if (forkPassword && project.findProperty("FORK_STORE_FILE")) {
+                storeFile file(project.findProperty("FORK_STORE_FILE"))
+                storePassword forkPassword
+                keyAlias "fork"
+                keyPassword forkPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig forkSigned ? signingConfigs.fork : signingConfigs.debug
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

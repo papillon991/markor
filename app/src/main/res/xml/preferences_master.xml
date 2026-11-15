@@ -300,6 +300,18 @@
             <PreferenceCategory android:title="@string/preset">
                 <Preference
                     android:icon="@drawable/ic_palette_black_24dp"
+                    android:key="@string/pref_key__basic_color_scheme_pcw_default"
+                    android:title="@string/editor_basic_color_scheme_pcw_default" />
+                <Preference
+                    android:icon="@drawable/ic_palette_black_24dp"
+                    android:key="@string/pref_key__basic_color_scheme_pcw_berlin"
+                    android:title="@string/editor_basic_color_scheme_pcw_berlin" />
+                <Preference
+                    android:icon="@drawable/ic_palette_black_24dp"
+                    android:key="@string/pref_key__basic_color_scheme_pcw_moscow"
+                    android:title="@string/editor_basic_color_scheme_pcw_moscow" />
+                <Preference
+                    android:icon="@drawable/ic_palette_black_24dp"
                     android:key="@string/pref_key__basic_color_scheme_markor"
                     android:title="@string/editor_basic_color_scheme_markor" />
                 <Preference

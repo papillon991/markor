@@ -77,7 +77,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
         if (getInt(R.string.pref_key__basic_color_scheme__bg_light, -999) == -999) {
-            setEditorBasicColor(true, R.color.white, R.color.dark_grey);
+            setEditorBasicColor(true, R.color.px_paper, R.color.px_desk);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
     }
@@ -759,6 +759,28 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return isFlatTopBottomBarColorEnabled() ? getUiBackgroundColor() : rcolor(R.color.primary);
     }
 
+    // Fork: the Pixel Cold War palette picked with an editor colour preset (default, berlin, moscow)
+    public static final int PCW_PAPER = 0, PCW_DESK = 1, PCW_ACCENT = 2, PCW_PLATE = 3;
+
+    public void setForkPcwPalette(final String id) {
+        setString(R.string.pref_key__fork_pcw_palette, id);
+    }
+
+    /** A colour of the picked palette; an id it does not know gives the default palette */
+    @ColorRes
+    public int getForkPcwColor(final int role) {
+        final String id = getString(R.string.pref_key__fork_pcw_palette, "default");
+        final int[] c;
+        if ("berlin".equals(id)) {
+            c = new int[]{R.color.pcw_berlin_paper, R.color.pcw_berlin_desk, R.color.pcw_berlin_accent, R.color.pcw_berlin_plate};
+        } else if ("moscow".equals(id)) {
+            c = new int[]{R.color.pcw_moscow_paper, R.color.pcw_moscow_desk, R.color.pcw_moscow_accent, R.color.pcw_moscow_plate};
+        } else {
+            c = new int[]{R.color.px_paper, R.color.px_desk, R.color.px_brass, R.color.px_plate};
+        }
+        return c[role];
+    }
+
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
         int resIdFg = forDarkMode ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light;
         int resIdBg = forDarkMode ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light;
@@ -825,8 +847,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);
         switch (i) {
-            case 1:
-                return R.id.nav_todo;
             case 2:
                 return R.id.nav_quicknote;
         }

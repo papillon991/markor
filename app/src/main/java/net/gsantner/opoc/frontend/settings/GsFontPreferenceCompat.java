@@ -109,6 +109,12 @@ public class GsFontPreferenceCompat extends ListPreference {
             }
         }
 
+        // Fork: font sets with fallback chain (see net.gsantner.markor.util.FontStacks)
+        _fontNames = appendToArray(_fontNames, "Myeongjo (Lora, MaruBuri, Shippori Mincho)");
+        _fontValues = appendToArray(_fontValues, net.gsantner.markor.util.FontStacks.MYEONGJO);
+        _fontNames = appendToArray(_fontNames, "Plex (IBM Plex Sans JP, KR, Sans)");
+        _fontValues = appendToArray(_fontValues, net.gsantner.markor.util.FontStacks.PLEX);
+
         for (File file : getAdditionalFonts()) {
             _fontNames = appendToArray(_fontNames, file.getName().replace(".ttf", "").replace(".TTF", ""));
             _fontValues = appendToArray(_fontValues, file.getAbsolutePath());
@@ -129,6 +135,9 @@ public class GsFontPreferenceCompat extends ListPreference {
     public static Typeface typeface(Context context, String familyOrFilepath, Integer typefaceStyle) {
         if (typefaceStyle == null) {
             typefaceStyle = Typeface.NORMAL;
+        }
+        if (net.gsantner.markor.util.FontStacks.isStack(familyOrFilepath)) {
+            return net.gsantner.markor.util.FontStacks.typeface(context, familyOrFilepath);
         }
         if (!familyOrFilepath.startsWith("/")) {
             return Typeface.create(familyOrFilepath, typefaceStyle);

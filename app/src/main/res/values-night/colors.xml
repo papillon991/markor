@@ -13,4 +13,18 @@
 
     <!-- All values specified only in base colors.xml  -->
 
+    <!-- Pixel Cold War: in dark mode the bars are bakelite, the page is the desk, text is paper and the accent is brass.
+         The values are in res/values/px_colors.xml, a copy of design/android/px_colors.xml of papillon991/pixel-icons-cold-war. -->
+    <color name="primary">@color/px_plate</color>
+    <color name="accent">@color/px_brass</color>
+    <color name="accent_light">@color/px_brass</color>
+    <color name="divider">@color/px_raised</color>
+    <color name="dark__background">@color/px_desk</color>
+    <color name="dark__primary_text">@color/px_paper</color>
+    <color name="dark__secondary_text">@color/px_dim</color>
+    <color name="dark__file">@color/px_dim</color>
+    <color name="dark__folder">@color/px_dim</color>
+    <color name="bottomnav_unselected">@color/px_dim</color>
+    <color name="fab_icon">@color/px_ink</color>
+
 </resources>

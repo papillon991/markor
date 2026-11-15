@@ -14,20 +14,15 @@
     <item
         android:id="@+id/nav_notebook"
         android:icon="@drawable/ic_folder_white_24dp"
-        android:title="@string/files" />
-
-    <item
-        android:id="@+id/nav_todo"
-        android:icon="@drawable/ic_assignment_turned_in_black_24dp"
-        android:title="@string/todo" />
+        android:title="@string/files_label_en" />
 
     <item
         android:id="@+id/nav_quicknote"
-        android:icon="@drawable/ic_lightning_black_24dp"
+        android:icon="@drawable/ic_note_black_24dp"
         android:title="@string/quicknote" />
 
     <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="@string/more" />
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="@string/more_label_en" />
 </menu>

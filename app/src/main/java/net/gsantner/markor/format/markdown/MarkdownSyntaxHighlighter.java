@@ -7,9 +7,13 @@
 #########################################################*/
 package net.gsantner.markor.format.markdown;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
+import androidx.core.content.ContextCompat;
+
+import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
@@ -59,28 +63,38 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
 
     @Override
     protected void generateSpans() {
+        // Fork: in dark mode the Pixel Cold War palette picked with the editor colour preset, as ghostwriter on the
+        // desktop: headings, list signs and links in its accent, quotes olive, code on its bakelite ground.
+        // Light mode keeps Markor's colours.
+        final Context context = _appSettings.getContext();
+        final int accent = ContextCompat.getColor(context, _appSettings.getForkPcwColor(AppSettings.PCW_ACCENT));
+        final int cHeading = _isDarkMode ? accent : MD_COLOR_HEADING;
+        final int cLink = _isDarkMode ? accent : MD_COLOR_LINK;
+        final int cList = _isDarkMode ? accent : MD_COLOR_LIST;
+        final int cQuote = _isDarkMode ? ContextCompat.getColor(context, R.color.md_quote_dark) : MD_COLOR_QUOTE;
+        final int cCodeblock = _isDarkMode ? ContextCompat.getColor(context, _appSettings.getForkPcwColor(AppSettings.PCW_PLATE)) : MD_COLOR_CODEBLOCK;
 
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
         createSmallBlueLinkSpans();
 
         if (_highlightBiggerHeadings) {
-            createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING));
+            createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, cHeading));
         } else {
-            createColorSpanForMatches(HEADING, MD_COLOR_HEADING);
+            createColorSpanForMatches(HEADING, cHeading);
         }
 
-        createColorSpanForMatches(LINK, MD_COLOR_LINK);
-        createColorSpanForMatches(LIST_UNORDERED, MD_COLOR_LIST);
-        createColorSpanForMatches(LIST_ORDERED, MD_COLOR_LIST);
+        createColorSpanForMatches(LINK, cLink);
+        createColorSpanForMatches(LIST_UNORDERED, cList);
+        createColorSpanForMatches(LIST_ORDERED, cList);
 
         if (_highlightLineEnding) {
-            createColorBackgroundSpan(DOUBLESPACE_LINE_ENDING, MD_COLOR_CODEBLOCK);
+            createColorBackgroundSpan(DOUBLESPACE_LINE_ENDING, cCodeblock);
         }
 
         createStyleSpanForMatches(BOLD, Typeface.BOLD);
         createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
-        createColorSpanForMatches(QUOTATION, MD_COLOR_QUOTE);
+        createColorSpanForMatches(QUOTATION, cQuote);
         createStrikeThroughSpanForMatches(STRIKETHROUGH);
 
         if (_highlightCodeChangeFont) {
@@ -88,7 +102,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         }
 
         if (_highlightCodeBlock) {
-            createColorBackgroundSpan(CODE, MD_COLOR_CODEBLOCK);
+            createColorBackgroundSpan(CODE, cCodeblock);
         }
     }
 }

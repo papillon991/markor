@@ -70,4 +70,20 @@
     <color name="link">#FF1EA3FD</color>;
     <color name="transparent">#00FFFFFF</color>
     <color name="light_border">@color/lighter_grey</color>
+
+    <!-- Named so that dark mode can give them another colour (values-night) -->
+    <color name="bottomnav_unselected">@color/white</color>
+    <color name="fab_icon">@color/white</color>
+    <!-- Quotes in the editor in dark mode: the olive of the palette, which px_colors.xml does not carry -->
+    <color name="md_quote_dark">#7FA263</color>
+    <!-- The other Pixel Cold War palettes (Px.java PALETTES of the icon pack): editor text, editor ground, and in the
+         Markdown editor the accent and the code ground. The default palette is px_colors.xml. -->
+    <color name="pcw_berlin_paper">#FFE3E2D9</color>
+    <color name="pcw_berlin_desk">#FF151717</color>
+    <color name="pcw_berlin_accent">#FF7CC3AD</color>
+    <color name="pcw_berlin_plate">#FF262929</color>
+    <color name="pcw_moscow_paper">#FFEDE5CF</color>
+    <color name="pcw_moscow_desk">#FF10161F</color>
+    <color name="pcw_moscow_accent">#FFEC6A8C</color>
+    <color name="pcw_moscow_plate">#FF1A2534</color>
 </resources>

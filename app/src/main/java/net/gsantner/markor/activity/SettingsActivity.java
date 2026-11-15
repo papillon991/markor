@@ -327,6 +327,18 @@ public class SettingsActivity extends MarkorBaseActivity {
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
                 }
+                case R.string.pref_key__basic_color_scheme_pcw_default:
+                case R.string.pref_key__basic_color_scheme_pcw_berlin:
+                case R.string.pref_key__basic_color_scheme_pcw_moscow: {
+                    // Fork: paper on the desk in dark mode, and the Markdown accent of that palette; the light pair stays Markor's
+                    final String palette = keyResId == R.string.pref_key__basic_color_scheme_pcw_berlin ? "berlin"
+                            : keyResId == R.string.pref_key__basic_color_scheme_pcw_moscow ? "moscow" : "default";
+                    _appSettings.setForkPcwPalette(palette);
+                    _appSettings.setEditorBasicColor(true, _appSettings.getForkPcwColor(AppSettings.PCW_PAPER), _appSettings.getForkPcwColor(AppSettings.PCW_DESK));
+                    _appSettings.setEditorBasicColor(false, R.color.light__primary_text, R.color.light__background);
+                    _appSettings.setRecreateMainRequired(true);
+                    break;
+                }
                 case R.string.pref_key__basic_color_scheme_markor: {
                     _appSettings.setEditorBasicColor(true, R.color.dark__primary_text, R.color.dark__background);
                     _appSettings.setEditorBasicColor(false, R.color.light__primary_text, R.color.light__background);

@@ -40,6 +40,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start" translatable="false">Start</string>
     <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
+    <string name="files_label_en" translatable="false">Files</string>
+    <string name="more_label_en" translatable="false">More</string>
     <string name="todo_txt" translatable="false">todo.txt</string>
     <string name="storage" translatable="false">Storage</string>
     <string name="quicknote_default_filename" translatable="false">QuickNote.md</string>
@@ -57,6 +59,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">Gruvbox</string>
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
     <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
+    <string name="editor_basic_color_scheme_pcw_default" translatable="false">Pixel Cold War</string>
+    <string name="editor_basic_color_scheme_pcw_berlin" translatable="false">Pixel Cold War Berlin</string>
+    <string name="editor_basic_color_scheme_pcw_moscow" translatable="false">Pixel Cold War Moscow</string>
 
     <string name="hexcode" translatable="false">Hexcode</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, todo.txt, Plaintext</string>
@@ -212,6 +217,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__basic_color_scheme_gruvbox" translatable="false">pref_key__basic_color_scheme_gruvbox</string>
     <string name="pref_key__basic_color_scheme_greenscale" translatable="false">pref_key__basic_color_scheme_greenscale</string>
     <string name="pref_key__basic_color_scheme_sepia" translatable="false">pref_key__basic_color_scheme_sepia</string>
+    <string name="pref_key__basic_color_scheme_pcw_default" translatable="false">pref_key__basic_color_scheme_pcw_default</string>
+    <string name="pref_key__basic_color_scheme_pcw_berlin" translatable="false">pref_key__basic_color_scheme_pcw_berlin</string>
+    <string name="pref_key__basic_color_scheme_pcw_moscow" translatable="false">pref_key__basic_color_scheme_pcw_moscow</string>
+    <string name="pref_key__fork_pcw_palette" translatable="false">pref_key__fork_pcw_palette</string>
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
     <string name="pref_key__is_disallow_screenshots" translatable="false">pref_key__is_disallow_screenshots</string>
     <string name="pref_key__snippet_directory_path" translatable="false">pref_key__snippet_directory_path</string>
